@@ -10,7 +10,7 @@ sendBtn.addEventListener("click", async () => {
   input.value = "";
 
   try {
-    const response = await fetch(
+    const res = await fetch(
       "https://n8ngc.codeblazar.org/webhook/travelight/chat",
       {
         method: "POST",
@@ -23,16 +23,14 @@ sendBtn.addEventListener("click", async () => {
       }
     );
 
-    if (!response.ok) {
-      throw new Error("Network response not OK");
-    }
+    const text = await res.text();
+    console.log("RAW RESPONSE:", text);
 
-    const data = await response.json();
-    console.log("Bot response:", data);
+    const data = JSON.parse(text);
 
     chatBox.innerHTML += `<p><strong>Travelight:</strong> ${data.reply}</p>`;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error("Fetch error:", err);
     chatBox.innerHTML += `<p style="color:red;">Error contacting chatbot</p>`;
   }
 });
