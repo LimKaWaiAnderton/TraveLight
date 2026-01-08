@@ -1,28 +1,12 @@
-/* TraveLight Styles */
-
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+  font-family: Arial, sans-serif;
+  padding: 20px;
 }
 
-/* Header styles */
-header {
-    /* Add header styles here */
-}
-
-/* Main content styles */
-main {
-    /* Add main content styles here */
-}
-
-/* Footer styles */
-footer {
-    /* Add footer styles here */
+#chat-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
 }
