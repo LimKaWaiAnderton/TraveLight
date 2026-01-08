@@ -3,25 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>✈️ TraveLight</title>
-  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <h2>✈️ TraveLight</h2>
 
-  <!-- MUST exist before JS runs -->
-  <div id="chat" class="chat-box"></div>
+  <!-- REQUIRED -->
+  <div id="chat" style="border:1px solid #ccc; height:300px; overflow:auto; padding:10px;"></div>
 
-  <div class="input-row">
-    <input
-      type="text"
-      id="userInput"
-      placeholder="Ask about travel agencies..."
-    />
-    <button type="button" id="sendBtn">Send</button>
-  </div>
+  <input
+    type="text"
+    id="userInput"
+    placeholder="Ask about travel agencies..."
+  />
 
-  <!-- MUST be last line -->
-  <script src="script.js" defer></script>
+  <button type="button" id="sendBtn">Send</button>
+
+  <!-- MUST be last -->
+  <script src="script.js"></script>
 </body>
 </html>
