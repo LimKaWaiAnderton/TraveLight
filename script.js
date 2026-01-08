@@ -1,12 +1,12 @@
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chat-box");
+const sendBtn = document.querySelector("button");
+const input = document.querySelector("input");
+const chatBox = document.querySelector(".chat-box");
 
-  const userMessage = input.value;
-  if (!userMessage) return;
+sendBtn.addEventListener("click", async () => {
+  const message = input.value.trim();
+  if (!message) return;
 
-  // Show user message
-  chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+  chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
   input.value = "";
 
   try {
@@ -15,19 +15,24 @@ async function sendMessage() {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userMessage: userMessage
-        })
+          userMessage: message,
+        }),
       }
     );
 
-    const data = await response.json();
+    if (!response.ok) {
+      throw new Error("Network response not OK");
+    }
 
-    // Adjust key if your Respond to Webhook uses another field
-    chatBox.innerHTML += `<p><strong>TraveLight:</strong> ${data.reply}</p>`;
+    const data = await response.json();
+    console.log("Bot response:", data);
+
+    chatBox.innerHTML += `<p><strong>Travelight:</strong> ${data.reply}</p>`;
   } catch (error) {
+    console.error(error);
     chatBox.innerHTML += `<p style="color:red;">Error contacting chatbot</p>`;
   }
-}
+});
