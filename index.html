@@ -2,23 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>TraveLight Chatbot</title>
+  <title>✈️ TraveLight</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <h1>✈️ TraveLight</h1>
+  <h2>✈️ TraveLight</h2>
 
-  <div id="chat-box"></div>
+  <div id="chat" class="chat-box"></div>
 
-  <input
-    id="userInput"
-    type="text"
-    placeholder="Ask about travel agencies..."
-  />
+  <div class="input-row">
+    <input
+      type="text"
+      id="userInput"
+      placeholder="Ask about travel agencies..."
+    />
+    <!-- IMPORTANT: type="button" -->
+    <button type="button" id="sendBtn">Send</button>
+  </div>
 
-  <button onclick="sendMessage()">Send</button>
-
+  <!-- Script at the END so DOM is ready -->
   <script src="script.js"></script>
 </body>
 </html>

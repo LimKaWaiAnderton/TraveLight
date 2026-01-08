@@ -1,36 +1,49 @@
-const sendBtn = document.querySelector("button");
-const input = document.querySelector("input");
-const chatBox = document.querySelector(".chat-box");
+// Elements
+const sendBtn = document.getElementById("sendBtn");
+const input = document.getElementById("userInput");
+const chatBox = document.getElementById("chat");
 
-sendBtn.addEventListener("click", async () => {
+// Click handler
+sendBtn.addEventListener("click", sendMessage);
+
+// Enter key handler
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
+async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+  // Show user message
+  chatBox.innerHTML += `<p><b>You:</b> ${message}</p>`;
   input.value = "";
+  chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
-    const res = await fetch(
+    const response = await fetch(
       "https://n8ngc.codeblazar.org/webhook/travelight/chat",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          userMessage: message,
-        }),
+          userMessage: message
+        })
       }
     );
 
-    const text = await res.text();
-    console.log("RAW RESPONSE:", text);
+    // IMPORTANT: n8n returns JSON
+    const data = await response.json();
 
-    const data = JSON.parse(text);
+    // Display AI reply
+    chatBox.innerHTML += `<p><b>TraveLight:</b> ${data.reply}</p>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-    chatBox.innerHTML += `<p><strong>Travelight:</strong> ${data.reply}</p>`;
-  } catch (err) {
-    console.error("Fetch error:", err);
-    chatBox.innerHTML += `<p style="color:red;">Error contacting chatbot</p>`;
+  } catch (error) {
+    console.error(error);
+    chatBox.innerHTML +=
+      `<p style="color:red;">Error contacting chatbot</p>`;
   }
-});
+}
